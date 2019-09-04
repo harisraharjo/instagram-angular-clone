@@ -1,0 +1,48 @@
+<app-bottom-navigation></app-bottom-navigation>
+<nav class="navbar navbar-expand-sm bg-light">
+  <a class="navbar-brand" *ngIf="currentUser; else someoneElse"
+    >&nbsp; {{ headerName }}</a
+  >
+  <ng-template #someoneElse>
+    <a class="navbar-brand"
+      ><i class="fas fa-arrow-left" (click)="back()"></i>&nbsp;
+      {{ headerName }}</a
+    >
+  </ng-template>
+  <ul *ngIf="currentUser" class="navbar-nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()"
+        ><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a
+      >
+    </li>
+  </ul>
+</nav>
+<div
+  class="row"
+  style="margin: 0px; border-top: 1px inset #fafafa;"
+  *ngIf="hasPhotos; else hasNoPhotos"
+>
+  <div *ngFor="let post of posts" class="col-4" style="padding: 0px;">
+    <div class="card" style="width:100%; border: none; padding: 1px;">
+      <div class="card-body">
+        <a [routerLink]="['/postingDetail', post.idposting]"
+          ><img
+            class="card-img-top"
+            src="http://localhost/instantgram_php/images/{{
+              post.idgambar
+            }}.png"
+            alt="gambar"
+        /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #hasNoPhotos>
+  <div class="row" style="margin: 0px; border-top: 1px inset #fafafa;">
+    <div class="noPosts">
+      <i class="fas fa-camera iconCamera"></i>
+      <h4>No posts yet</h4>
+    </div>
+  </div>
+</ng-template>

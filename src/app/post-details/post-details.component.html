@@ -1,0 +1,105 @@
+<app-bottom-navigation></app-bottom-navigation>
+<nav class="navbar navbar-expand-xl bg-light">
+  <a class="navbar-brand"
+    ><i class="fas fa-arrow-left" (click)="back()"></i>&nbsp; {{ headerName }}
+  </a>
+</nav>
+<div class="jumbotron jumbotron-fluid" style="margin: 0px; padding: 12px;">
+  <h5>&nbsp; {{ username }}</h5>
+</div>
+<div class="row" style="margin: 0px;">
+  <div class="col" style="padding: 0px;">
+    <div class="card" style="width:100%;">
+      <div class="card-header">
+        <div
+          *ngIf="countGambar > 1; else satuGambar"
+          id="gambar"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <ul class="carousel-indicators">
+            <li data-target="#gambar" data-slide-to="0" class="active"></li>
+            <li data-target="#gambar" data-slide-to="1"></li>
+            <li data-target="#gambar" data-slide-to="2"></li>
+            <li data-target="#gambar" data-slide-to="3"></li>
+          </ul>
+
+          <div class="carousel-inner">
+            <div
+              *ngFor="let photo of photos; index as i"
+              class="carousel-item"
+              [ngClass]="{ active: i === 0 }"
+            >
+              <img
+                src="http://localhost/instantgram_php/images/{{
+                  photo.idgambar
+                }}.png"
+                width="100%"
+              />
+            </div>
+          </div>
+
+          <a class="carousel-control-prev" href="#gambar" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#gambar" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+        <ng-template #satuGambar>
+          <div
+            *ngFor="let photo of photos; index as i"
+            class="carousel-item"
+            [ngClass]="{ active: i === 0 }"
+          >
+            <img
+              src="http://localhost/instantgram_php/images/{{
+                photo.idgambar
+              }}.png"
+              width="100%"
+            />
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">
+          <a (click)="addLikes()"
+            ><i [ngClass]="isLiked ? 'fas fa-heart' : 'far fa-heart'"></i
+          ></a>
+          {{ totalLikes }} likes
+        </h5>
+        <p class="card-text">
+          <b>{{ username }}</b> {{ caption }}<br />
+          <small>{{ date }}</small>
+        </p>
+
+        <a *ngIf="netizenCmt" (click)="showAllComments()">{{ commentText }}</a>
+        <ul *ngIf="showComments" class="list-group list-group-flush">
+          <li *ngFor="let balasanKomen of netizenCmt" class="list-group-item">
+            <b>{{ balasanKomen.username }}</b> {{ balasanKomen.isi_komen
+            }}<br />
+            <small style="color: grey;">{{ balasanKomen.tanggal }}</small>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="showComments" class="card-footer">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="add comment..."
+            #comment
+            [value]="searchVal"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" (click)="addComment(comment.value)">
+              Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

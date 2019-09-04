@@ -1,0 +1,18 @@
+<nav *ngIf="loggedIn" class="fixed-bottom bg-light">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        routerLinkActive="active"
+        routerLink="/"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ><i class="fas fa-home"></i
+      ></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/search"
+        ><i class="fas fa-search"></i
+      ></a>
+    </li>
+  </ul>
+</nav>

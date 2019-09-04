@@ -1,0 +1,22 @@
+<app-bottom-navigation></app-bottom-navigation>
+<nav class="navbar navbar-expand-sm bg-light">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search"
+      #keyword
+      (keyup)="filter(keyword.value)"
+    />
+  </div>
+</nav>
+<ul class="list-group">
+  <a *ngFor="let user of filtered" [routerLink]="['/users', user.username]"
+    ><li class="list-group-item">
+      {{ user.username }}
+    </li></a
+  >
+</ul>
